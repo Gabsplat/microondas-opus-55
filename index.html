@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Dentro del microondas · Cuaderno de ingeniería</title>
+<meta name="description" content="Un cuaderno de ingeniería animado en grafito que explica qué produce las microondas, cómo llegan al alimento, por qué lo calientan, para qué gira el plato y qué hace la puerta.">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<canvas id="stage" role="img" aria-label="Lámina dibujada a lápiz" tabindex="-1"></canvas>
+
+<header id="top">
+  <p class="brand"><span class="brand-mark" aria-hidden="true"></span><span><b>Dentro del microondas</b><small>cuaderno de ingeniería · grafito</small></span></p>
+  <nav id="chapters" aria-label="Capítulos"></nav>
+  <details id="sources" class="pop">
+    <summary>Fuentes y alcance</summary>
+    <div class="pop-body">
+      <h2>Qué es dibujo y qué es física</h2>
+      <p><b>Ilustración conceptual:</b> todos los diagramas. Las formas, posiciones y proporciones son esquemáticas; cada modelo de horno es distinto.</p>
+      <p><b>Tiempo didáctico:</b> la oscilación del campo, el giro de las moléculas y el movimiento de los electrones están <em>enormemente ralentizados</em>. En un horno real el campo cambia de sentido unas 4.900 millones de veces por segundo (2,45&nbsp;GHz).</p>
+      <p><b>No es una simulación:</b> el patrón de zonas fuertes y débiles y el «calentamiento» de los platos son cualitativos. No hay temperaturas calculadas.</p>
+      <p><b>Arquitectura:</b> se dibuja la fuente <em>convencional</em> (transformador, condensador y diodo). Los modelos <em>inverter</em> reemplazan el transformador por una fuente electrónica que regula la potencia de forma continua.</p>
+      <p><b>Seguridad:</b> un horno real no funciona abierto ni debe desarmarse; su condensador puede conservar carga peligrosa aun desenchufado.</p>
+      <h2>Fuentes primarias</h2>
+      <ul>
+        <li><a href="https://www.fda.gov/radiation-emitting-products/resources-you-radiation-emitting-products/microwave-ovens" target="_blank" rel="noopener">FDA — Microwave Ovens</a>: magnetrón, reflexión en el metal, dos enclavamientos y sistema de monitoreo, límite de fuga.</li>
+        <li><a href="https://www.ecfr.gov/current/title-21/chapter-I/subchapter-J/part-1030/section-1030.10" target="_blank" rel="noopener">21 CFR 1030.10 — norma de funcionamiento de hornos de microondas</a>: enclavamientos, uno oculto, medio de monitoreo, emisión.</li>
+        <li><a href="https://doi.org/10.1088/0031-9120/39/1/006" target="_blank" rel="noopener">Vollmer, M. (2004). Physics of the microwave oven. <i>Physics Education</i> 39(1)</a>: magnetrón, guía de ondas, ondas estacionarias, relajación dieléctrica del agua.</li>
+        <li><a href="https://history.aip.org/catalog/books/21201.html" target="_blank" rel="noopener">Collins, G. B. (ed.) (1948). <i>Microwave Magnetrons</i>, MIT Radiation Laboratory Series, vol. 6</a>: cavidades resonantes y nube electrónica en campos cruzados.</li>
+        <li><a href="https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10531524" target="_blank" rel="noopener">USPTO — Microwave oven having door with transparent panel</a>: blindaje metálico perforado en la ventana de la puerta.</li>
+        <li><a href="https://www.geapplianceparts.com/store/parts/ModelSectionParts/JE1590SH01/1/0/0/0/MICROWAVE" target="_blank" rel="noopener">GE Appliances — despiece de un horno convencional</a>: transformador, condensador, diodo, magnetrón, ventilador, interruptores.</li>
+        <li><a href="https://www.panasonic.com/uk/consumer/home-appliances-learn/home-appliances/inverter-technology-the-new-way-of-cooking.html" target="_blank" rel="noopener">Panasonic — tecnología inverter</a>: potencia por ciclos en hornos convencionales frente a potencia continua.</li>
+        <li><a href="https://repository.lib.ncsu.edu/server/api/core/bitstreams/0eebf3ff-611f-4e9a-9294-0c6e971a2ef6/content" target="_blank" rel="noopener">NC State — mecanismos de calentamiento dieléctrico</a>: rotación dipolar y conducción iónica.</li>
+      </ul>
+    </div>
+  </details>
+</header>
+
+<aside id="note" aria-labelledby="title">
+  <p id="kicker" class="kicker"></p>
+  <h1 id="title"></h1>
+  <div id="text" class="text" aria-live="polite"></div>
+  <div id="controls" class="scene-controls"></div>
+  <dl id="defs" class="defs"></dl>
+  <p id="scope" class="scope"></p>
+</aside>
+
+<footer id="dock" aria-label="Reproducción y navegación">
+  <button id="prev" type="button" class="nav-btn" aria-label="Capítulo anterior"><svg viewBox="0 0 36 20" aria-hidden="true"><path d="M33 10.5 4 10 M12 3 3.5 10 12 17"/><path class="ghost" d="M31 11.5 6 11 M12.5 4.5 5 10.5"/></svg><span class="lbl">Anterior</span></button>
+  <div class="transport">
+    <div class="phase-wrap">
+      <ol id="phases" class="phases" aria-label="Fases del capítulo"></ol>
+      <div class="track"><div id="progress" class="fill"></div></div>
+    </div>
+    <div class="tools" role="toolbar" aria-label="Herramientas de la lámina">
+      <button id="play" type="button" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-pause" d="M6.5 4 6 16 M13.5 4.2 14 15.8"/><path class="i-play" d="M6 3.5 16 10 6.3 16.4Z"/></svg><span class="lbl">Pausar</span></button>
+      <button id="replay" type="button" aria-label="Repetir el capítulo desde el principio"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 10.5a5.6 5.6 0 1 1-2-4.6 M14 2.8l-.4 3.6-3.6-.6"/></svg><span class="lbl">Repetir</span></button>
+      <button id="full" type="button" aria-label="Ver la diapositiva completa"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3.5h14v13H3.2Z M6 8h8 M6 11h6"/></svg><span class="lbl">Completa</span></button>
+      <button id="zin" type="button" aria-label="Ampliar el dibujo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8.5 3.5a5 5 0 1 1-.1 0 M12.2 12.3 17 17 M6 8.6h5 M8.5 6.1v5"/></svg><span class="lbl">Ampliar</span></button>
+      <button id="reframe" type="button" aria-label="Volver a encuadrar"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3.2h4 M13 3h4v4 M17 13v4h-4 M7 17H3.1v-4"/></svg><span class="lbl">Encuadrar</span></button>
+      <details id="exportMenu" class="pop up">
+        <summary><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9 M6 8.5l4 4 4-4 M3.5 14v3h13v-3"/></svg><span class="lbl">PNG</span></summary>
+        <div class="pop-body menu">
+          <button id="expSection" type="button">Exportar esta sección</button>
+          <button id="expFinal" type="button">Exportar la lámina final</button>
+        </div>
+      </details>
+    </div>
+  </div>
+  <button id="next" type="button" class="nav-btn" aria-label="Capítulo siguiente"><span class="lbl">Siguiente</span><svg viewBox="0 0 36 20" aria-hidden="true"><path d="M3 10 32 10.5 M24 3 32.5 10 24 17"/><path class="ghost" d="M5 11 30 11.5 M23.5 4.5 31 10.5"/></svg></button>
+</footer>
+
+<p class="kbd-hint" aria-hidden="true">← → capítulos · espacio pausa · R repetir · C completa · + ampliar · 0 encuadrar</p>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><p class="noscript">Esta experiencia se dibuja con JavaScript y Canvas 2D.</p></noscript>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

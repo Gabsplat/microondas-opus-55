@@ -1,0 +1,14 @@
+{
+  "name": "microondas-opus-55",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node scripts/test.mjs",
+    "shot": "node scripts/shot.mjs",
+    "prof": "node scripts/prof.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
