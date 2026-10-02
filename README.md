@@ -4,6 +4,8 @@ Experiencia interactiva que explica el interior de un horno de microondas como u
 
 ## Uso
 
+Publicado en GitHub Pages: https://gabsplat.github.io/microondas-opus-55/ (rama `main`, raíz del repositorio; cada push vuelve a publicar).
+
 ```sh
 pnpm start      # servidor estático en 127.0.0.1:4380 (variable PORT para cambiarlo)
 pnpm test       # pruebas de interacción con Playwright (servidor encendido; URL=... para otra dirección)
